@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design system — UVS Voyages / Union Vision Services
+ * Couleurs en oklch (identiques au projet Lovable d'origine).
+ */
+
+:root {
+  --radius: 0.9rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.24 0.04 264);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.04 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.04 264);
+  --primary: oklch(0.31 0.134 267);       /* Bleu marine #0B2A6F */
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.96 0.015 255);
+  --secondary-foreground: oklch(0.31 0.134 267);
+  --muted: oklch(0.971 0.008 250);
+  --muted-foreground: oklch(0.52 0.035 258);
+  --accent: oklch(0.8 0.156 82);          /* Jaune #F5B400 */
+  --accent-foreground: oklch(0.26 0.09 267);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.918 0.015 255);
+  --input: oklch(0.918 0.015 255);
+  --ring: oklch(0.31 0.134 267);
+  --whatsapp: oklch(0.81 0.17 156);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+@layer utilities {
+  /* Animation reveal identique à l'original */
+  .reveal {
+    animation: reveal-up 0.6s ease-out both;
+  }
+
+  /* Carte avec ombre douce et hover lift */
+  .card-soft {
+    border-radius: calc(var(--radius) + 8px);
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px -18px oklch(0.31 0.134 267 / 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-soft:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -20px oklch(0.31 0.134 267 / 0.45);
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
