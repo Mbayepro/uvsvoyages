@@ -21,6 +21,9 @@ export const site = {
   ninea: "NINEA : à compléter",
   rccm: "RCCM : à compléter",
   successRate: "84,21 %",
+  successRateLabel: "84,21 % de réussite au Bac (C.R.E.M 2026)",
+  students: "38",
+  since: "2021",
   countries: ["France", "Belgique", "Canada"],
 } as const;
 
@@ -35,26 +38,44 @@ export const nav = [
 
 export const voyagesServices = [
   {
+    icon: "FolderOpen",
+    step: "01",
+    image: "/images/services/dossier.jpg",
     title: "Création et suivi du dossier Campus France",
     text: "Ouverture du compte, saisie des informations et vérification complète du dossier.",
   },
   {
+    icon: "BookMarked",
+    step: "02",
+    image: "/images/services/formations.jpg",
     title: "Choix des formations",
     text: "Sélection de vœux cohérents avec votre profil, votre niveau et votre budget.",
   },
   {
+    icon: "PenLine",
+    step: "03",
+    image: "/images/services/motivation.jpg",
     title: "Lettres de motivation",
     text: "Rédaction et relecture de vos lettres pour chaque établissement visé.",
   },
   {
+    icon: "Mic2",
+    step: "04",
+    image: "/images/services/formations.jpg",
     title: "Préparation à l'entretien",
     text: "Simulations d'entretien Campus France et conseils personnalisés.",
   },
   {
+    icon: "FileCheck",
+    step: "05",
+    image: "/images/services/dossier.jpg",
     title: "Dossier de visa",
     text: "Constitution du dossier, prise de rendez-vous et vérification des pièces.",
   },
   {
+    icon: "Plane",
+    step: "06",
+    image: "/images/services/formations.jpg",
     title: "Préparation au départ",
     text: "Logement, assurance, arrivée : nous restons présents jusqu'au voyage.",
   },
@@ -212,12 +233,7 @@ export const fascicules = [
   { title: "Histoire-Géographie", price: "2 000 FCFA" },
 ];
 
-export const temoignages = [
-  { name: "Aminata D.", country: "France", text: "Un accompagnement clair du début à la fin, j'ai su exactement quoi préparer à chaque étape." },
-  { name: "Ousmane F.", country: "Belgique", text: "L'équipe a relu ma lettre de motivation plusieurs fois. J'étais beaucoup plus serein à l'entretien." },
-  { name: "Fatou S.", country: "Canada", text: "Le suivi du dossier visa m'a évité plusieurs erreurs. Merci pour la patience." },
-  { name: "Cheikh M.", country: "France", text: "Les cours des Élites du Bac m'ont remis à niveau en philosophie avant les épreuves." },
-];
+export const temoignages: any[] = [];
 
 export const valeurs = [
   { title: "Transparence", text: "Des tarifs annoncés clairement, sans frais cachés ni promesse irréaliste." },

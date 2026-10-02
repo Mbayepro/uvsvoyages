@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Play, Quote } from "lucide-react";
 import { Section, SectionTitle, PageHero } from "@/components/Section";
 import { GalleryModal } from "@/components/GalleryModal";
+import { AnimatedSection } from "@/components/AnimatedSection";
 import { createClient } from "@supabase/supabase-js";
 import { site, temoignages } from "@/lib/config/site";
 
@@ -55,13 +56,17 @@ export default async function TemoignagesPage() {
 
       {/* Galerie interactive (Client Component) */}
       <Section>
-        <SectionTitle eyebrow="Galerie" title="Captures de visa" />
+        <AnimatedSection>
+          <SectionTitle eyebrow="Galerie" title="Captures de visa" />
+        </AnimatedSection>
         <GalleryModal items={galerie} />
       </Section>
 
       {/* Vidéos (placeholders) */}
       <Section muted>
-        <SectionTitle eyebrow="Vidéos" title="Témoignages filmés" />
+        <AnimatedSection>
+          <SectionTitle eyebrow="Vidéos" title="Témoignages filmés" />
+        </AnimatedSection>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {[1, 2, 3].map((n) => (
             <div
@@ -79,7 +84,9 @@ export default async function TemoignagesPage() {
 
       {/* Avis textuels */}
       <Section>
-        <SectionTitle eyebrow="Avis" title="Ce qu'ils en disent" />
+        <AnimatedSection>
+          <SectionTitle eyebrow="Avis" title="Ce qu'ils en disent" />
+        </AnimatedSection>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {temoignages.map((t) => (
             <div key={t.name} className="card-soft p-7">

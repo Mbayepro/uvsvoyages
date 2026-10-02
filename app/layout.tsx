@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppButton";
+import { PageTransitionWrapper } from "@/components/PageTransitionWrapper";
 import { site } from "@/lib/config/site";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -71,7 +72,9 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <PageTransitionWrapper>{children}</PageTransitionWrapper>
+        </main>
         <Footer />
         <WhatsAppFloat />
       </body>
