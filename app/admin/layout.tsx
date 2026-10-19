@@ -47,6 +47,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <Link href="/admin/temoignages" className="flex flex-col items-center gap-1 p-2">
           <ImageIcon className="h-5 w-5" /> Galerie
         </Link>
+        <Link href="/admin/blog" className="flex flex-col items-center gap-1 p-2 text-accent">
+          <BookOpen className="h-5 w-5" /> Conseils
+        </Link>
         <Link href="/" className="flex flex-col items-center gap-1 p-2 text-muted/80">
           <Home className="h-5 w-5" /> Site public
         </Link>

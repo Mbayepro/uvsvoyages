@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Download, MapPin, Phone, ArrowLeft, Globe, Share2 } from "lucide-react";
+import { Download, MapPin, Phone, ArrowLeft, Globe } from "lucide-react";
 import { site } from "@/lib/config/site";
+import { ShareButton } from "@/components/ShareButton";
 
 export const metadata: Metadata = {
   title: "Carte Digitale — Mouhamed Ndiaye",
@@ -16,21 +17,26 @@ export default function CarteDigitalePage() {
       <Link href="/" className="absolute top-6 left-6 flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition">
         <ArrowLeft className="h-4 w-4" /> Retour
       </Link>
+      <ShareButton />
 
       <div className="w-full max-w-sm card-soft p-8 text-center relative overflow-hidden">
         {/* Décoration en arrière-plan */}
         <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-accent/20 blur-3xl"></div>
         <div className="absolute -bottom-16 -left-16 h-32 w-32 rounded-full bg-primary/10 blur-3xl"></div>
 
-        {/* Avatar Placeholder (Logo) */}
-        <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-primary text-white shadow-xl">
-          <span className="text-3xl font-bold tracking-tighter">UVS</span>
+        {/* Photo réelle de Mouhamed Ndiaye */}
+        <div className="mx-auto mb-5 h-28 w-28 overflow-hidden rounded-full border-4 border-accent shadow-xl">
+          <img
+            src="/images/mouhamed-ndiaye.jpg"
+            alt="Mouhamed Ndiaye — Fondateur UVS Voyages"
+            className="h-full w-full object-cover"
+          />
         </div>
 
         <h1 className="text-2xl font-bold text-primary">Mouhamed Ndiaye</h1>
         <p className="font-semibold text-accent mt-1">Fondateur</p>
-        <p className="text-sm text-muted-foreground mt-2">
-          UVS Voyages & Les Élites du Bac
+        <p className="text-sm text-muted-foreground mt-1">
+          Institut UVS Voyages & Les Élites du Bac
         </p>
 
         <div className="mt-8 space-y-4 text-sm text-left">

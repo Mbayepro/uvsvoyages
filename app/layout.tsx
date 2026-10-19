@@ -15,6 +15,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://uvsvoyage.com"),
   title: {
     default: "UVS Voyages — Union Vision Services",
     template: "%s | UVS Voyages",
@@ -26,9 +27,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_SN",
     siteName: "UVS Voyages",
+    images: [
+      {
+        url: "/uvs-logo.jpg",
+        width: 800,
+        height: 800,
+        alt: "UVS Voyages Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/uvs-logo.jpg"],
   },
   robots: {
     index: true,

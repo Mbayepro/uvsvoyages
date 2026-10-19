@@ -9,8 +9,9 @@ export const site = {
   email: "servicesunionvision@gmail.com",
   address: "Yeumbeul Sud, Afia 1, arrêt Fatou Laobé, Sise Kognou Guéwël",
   tiktok: "https://www.tiktok.com/@uvsvoyages",
-  ninea: "NINEA : à compléter",
-  rccm: "RCCM : à compléter",
+  ninea: "NINEA : 012481785",
+  rccm: "RCCM : SN DKR 2025 A 35738",
+  phones: ["78 699 65 65", "78 339 04 65", "77 475 67 95", "70 960 02 25"],
   successRate: "84,21 %",
   countries: ["France", "Belgique", "Canada"],
 };
