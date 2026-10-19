@@ -9,7 +9,7 @@ function getAdminSupabase() {
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
-    throw new Error("Supabase non configuré");
+    throw new Error("Supabase non configuré. Veuillez vérifier vos identifiants dans .env.");
   }
 
   return createClient(supabaseUrl, supabaseKey);
@@ -17,49 +17,59 @@ function getAdminSupabase() {
 
 export async function addTestimonial(formData: FormData) {
   try {
-    const pays = formData.get("pays") as string;
-    const label = formData.get("label") as string;
-    const file = formData.get("image") as File;
+    const pays = (formData.get("pays") as string)?.trim();
+    const label = (formData.get("label") as string)?.trim();
+    const file = formData.get("image") as File | null;
 
     if (!pays || !label || !file || file.size === 0) {
-      return { success: false, error: "Tous les champs sont requis." };
+      return { success: false, error: "Veuillez renseigner le pays, le titre et sélectionner une image." };
     }
 
     const supabase = getAdminSupabase();
 
-    // 1. Uploader l'image dans le bucket 'gallery'
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-    
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    // 1. Conversion du fichier en Buffer Node.js (évite tout blocage de stream / freeze)
+    const originalName = file.name || "visa.jpg";
+    const fileExt = (originalName.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const fileName = `visa-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // 2. Upload dans le bucket 'gallery'
+    const { error: uploadError } = await supabase.storage
       .from("gallery")
-      .upload(fileName, file);
+      .upload(fileName, buffer, {
+        contentType: file.type || "image/jpeg",
+        upsert: true,
+      });
 
     if (uploadError) {
-      return { success: false, error: `Erreur upload: ${uploadError.message}` };
+      return { success: false, error: `Erreur stockage image : ${uploadError.message}` };
     }
 
-    // 2. Récupérer l'URL publique
+    // 3. Récupérer l'URL publique
     const { data: { publicUrl } } = supabase.storage
       .from("gallery")
       .getPublicUrl(fileName);
 
-    // 3. Insérer dans la table testimonials
-    const { error: insertError } = await supabase
+    // 4. Insérer dans la table testimonials
+    const { data: inserted, error: insertError } = await supabase
       .from("testimonials")
       .insert([
         { pays, label, image_url: publicUrl }
-      ]);
+      ])
+      .select()
+      .single();
 
     if (insertError) {
-      return { success: false, error: `Erreur BDD: ${insertError.message}` };
+      return { success: false, error: `Erreur base de données : ${insertError.message}` };
     }
 
     revalidatePath("/admin/temoignages");
     revalidatePath("/temoignages"); // Actualiser la page publique
-    return { success: true };
+    return { success: true, item: inserted };
   } catch (err: any) {
-    return { success: false, error: err.message || "Erreur inconnue" };
+    return { success: false, error: err?.message || "Une erreur inattendue est survenue lors de l'enregistrement." };
   }
 }
 
@@ -67,22 +77,24 @@ export async function deleteTestimonial(id: string, imageUrl: string) {
   try {
     const supabase = getAdminSupabase();
 
-    // 1. Supprimer l'image du bucket
-    const fileName = imageUrl.split("/").pop();
-    if (fileName) {
-      await supabase.storage.from("gallery").remove([fileName]);
+    // 1. Supprimer l'image du bucket si elle est stockée sur Supabase
+    if (imageUrl && imageUrl.includes("/gallery/")) {
+      const fileName = imageUrl.split("/").pop();
+      if (fileName) {
+        await supabase.storage.from("gallery").remove([fileName]);
+      }
     }
 
     // 2. Supprimer la ligne de la BDD
     const { error } = await supabase.from("testimonials").delete().eq("id", id);
     if (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: `Erreur suppression BDD : ${error.message}` };
     }
 
     revalidatePath("/admin/temoignages");
     revalidatePath("/temoignages");
     return { success: true };
   } catch (err: any) {
-    return { success: false, error: err.message };
+    return { success: false, error: err?.message || "Erreur lors de la suppression." };
   }
 }
