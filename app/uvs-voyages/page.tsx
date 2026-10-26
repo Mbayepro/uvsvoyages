@@ -15,6 +15,7 @@ import { SimpleForm, Field, SelectField } from "@/components/SimpleForm";
 import { Accordion } from "@/components/Accordion";
 import { ProfileTabs } from "@/components/ProfileTabs";
 import { ServicesCarousel } from "@/components/ServicesCarousel";
+import { BudgetSimulator } from "@/components/BudgetSimulator";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import {
   piecesParProfil,
@@ -154,8 +155,15 @@ export default function UvsVoyagesPage() {
         </div>
       </Section>
 
+      {/* Simulateur de budget interactif */}
+      <Section id="simulateur" muted>
+        <AnimatedSection>
+          <BudgetSimulator />
+        </AnimatedSection>
+      </Section>
+
       {/* Pièces par profil */}
-      <Section muted>
+      <Section>
         <AnimatedSection>
           <SectionTitle eyebrow="Dossier" title="Pièces à fournir selon votre profil" />
         </AnimatedSection>

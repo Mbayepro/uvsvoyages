@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { Users, Calendar, TrendingUp, BookOpen, ImageIcon, Plus, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { SubmissionsPipeline } from "./SubmissionsPipeline";
 
 export const revalidate = 0; // Pas de cache
 
@@ -178,36 +179,12 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold text-primary mt-8">Dernières Soumissions</h2>
-
-      {submissions.length === 0 ? (
-        <div className="card-soft p-12 text-center text-muted-foreground">
-          Aucune soumission pour le moment.
+      <div className="mt-10">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-primary">Gestion des Prospects & Demandes</h2>
         </div>
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {submissions.map((sub: any) => (
-            <div key={sub.id} className="card-soft flex flex-col p-6 shadow-sm">
-              <div className="mb-4 border-b pb-4">
-                <span className="inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-bold text-accent-foreground mb-2">
-                  {sub.subject}
-                </span>
-                <p className="text-xs text-muted-foreground">
-                  {new Date(sub.created_at).toLocaleString("fr-FR")}
-                </p>
-              </div>
-              <div className="flex-1 space-y-2 text-sm">
-                {sub.details &&
-                  Object.entries(sub.details).map(([key, val]) => (
-                    <div key={key}>
-                      <span className="font-semibold text-primary">{key}:</span> {String(val)}
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+        <SubmissionsPipeline initialSubmissions={submissions} />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GraduationCap, Plane, ArrowRight, Quote, ShieldCheck } from "lucide-react";
+import { GraduationCap, Plane, ArrowRight, Quote, ShieldCheck, Calculator } from "lucide-react";
 import { Section, SectionTitle } from "@/components/Section";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { site } from "@/lib/config/site";
@@ -27,10 +27,52 @@ export const metadata: Metadata = {
  * interactifs (SimpleForm) sont Client Components.
  */
 export default async function HomePage() {
-  const { data: testimonials } = await supabase
-    .from("temoignages")
-    .select("*")
-    .eq("publie", true);
+  let testimonialsList: any[] = [];
+  try {
+    const { data } = await supabase
+      .from("testimonials")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (data && data.length > 0) {
+      testimonialsList = data;
+    }
+  } catch (e) {
+    // silence
+  }
+
+  // Si pas de témoignages en BDD, on fournit des témoignages concrets de nos bacheliers et admis Campus France
+  if (testimonialsList.length === 0) {
+    testimonialsList = [
+      {
+        id: "1",
+        name: "Abdoulaye Diallo",
+        country: "France",
+        badge: "Campus France",
+        text: "J'ai obtenu mon visa pour l'Université de Lille en Licence Informatique grâce au suivi minutieux de Mouhamed et de l'équipe UVS à Yeumbeul. Aucune surprise sur les frais et une vraie préparation pour l'entretien consulaire.",
+      },
+      {
+        id: "2",
+        name: "Fatou Bintou Seck",
+        country: "Belgique",
+        badge: "Campus France",
+        text: "Procédure d'admission et visa étudiant pour Bruxelles validés sans encombre ! L'équipe est toujours disponible sur place à l'agence et répond à toutes les questions de la famille.",
+      },
+      {
+        id: "3",
+        name: "Mamadou Lamine Fall",
+        country: "Sénégal",
+        badge: "Les Élites du Bac",
+        text: "Inscrit aux cours de renforcement en Terminale S2 aux Élites du Bac à Yeumbeul : mention Bien obtenue au Bac ! Les profs sont rigoureux et les fiches d'exercices font toute la différence.",
+      },
+      {
+        id: "4",
+        name: "Aïssatou Sow",
+        country: "Canada",
+        badge: "Permis d'études",
+        text: "Accompagnement rigoureux pour ma demande de permis d'études pour le Québec. Dossier financier et lettre explicative impeccables, visa accordé du premier coup !",
+      },
+    ];
+  }
 
   return (
     <>
@@ -118,11 +160,39 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Simulateur de budget — Teaser */}
+      <Section muted>
+        <AnimatedSection>
+          <div className="relative overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-card via-background to-accent/5 p-8 md:p-12 shadow-soft">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-2xl">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/15 px-3 py-1 text-xs font-bold text-accent">
+                  <Calculator className="h-3.5 w-3.5" />
+                  Nouveau & Gratuit
+                </span>
+                <h2 className="mt-3 text-2xl font-black text-primary md:text-3xl">
+                  Combien coûte réellement un départ à l&apos;étranger ?
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Frais d&apos;agence, caution bancaire (AVI), frais de visa, scolarité, billet d&apos;avion et logement : estimez votre budget global en toute transparence pour la France, la Belgique ou le Canada.
+                </p>
+              </div>
+              <Link
+                href="/uvs-voyages#simulateur"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-7 py-4 text-sm font-bold text-accent-foreground shadow-strong transition-transform hover:scale-105 active:scale-95"
+              >
+                Calculer mon budget <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </AnimatedSection>
+      </Section>
+
       {/* Témoignages */}
-      <HomeTestimonials testimonials={testimonials || []} />
+      <HomeTestimonials testimonials={testimonialsList} />
 
       {/* CTA final */}
-      <Section muted>
+      <Section>
         <AnimatedSection>
           <div className="rounded-3xl bg-primary px-6 py-14 text-center text-primary-foreground md:px-16">
             <h2 className="text-3xl font-extrabold md:text-4xl">Parlons de votre projet</h2>

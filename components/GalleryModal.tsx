@@ -22,22 +22,45 @@ export function GalleryModal({ items }: { items: GalleryItem[] }) {
   const filtres = ["Tous", ...pays];
   const visibles = items.filter((g) => filtre === "Tous" || g.pays === filtre);
 
+  const getFlag = (p: string) => {
+    if (p === "Tous") return "✨";
+    const l = p.toLowerCase();
+    if (l.includes("france")) return "🇫🇷";
+    if (l.includes("belgique")) return "🇧🇪";
+    if (l.includes("canada")) return "🇨🇦";
+    if (l.includes("sénégal") || l.includes("senegal")) return "🇸🇳";
+    return "🌍";
+  };
+
+  const getCount = (p: string) => {
+    if (p === "Tous") return items.length;
+    return items.filter((g) => g.pays === p).length;
+  };
+
   return (
     <>
-      <div className="mt-8 flex flex-wrap gap-2">
+      <div className="mt-8 flex flex-wrap gap-2.5">
         {filtres.map((f) => (
           <button
             key={f}
             type="button"
             onClick={() => setFiltre(f)}
             aria-pressed={filtre === f}
-            className={`rounded-full border px-5 py-2 text-sm font-semibold transition-colors ${
+            className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-bold transition-all ${
               filtre === f
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-background text-muted-foreground hover:text-primary"
+                ? "border-primary bg-primary text-primary-foreground shadow-xs"
+                : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-primary"
             }`}
           >
-            {f}
+            <span>{getFlag(f)}</span>
+            <span>{f}</span>
+            <span
+              className={`rounded-full px-1.5 py-0.2 text-[10px] ${
+                filtre === f ? "bg-white/20 text-white" : "bg-muted text-muted-foreground"
+              }`}
+            >
+              {getCount(f)}
+            </span>
           </button>
         ))}
       </div>
@@ -51,6 +74,9 @@ export function GalleryModal({ items }: { items: GalleryItem[] }) {
             className="card-soft relative flex aspect-[3/4] flex-col items-center justify-center gap-2 overflow-hidden p-4 text-center group"
             aria-label={`Agrandir : ${g.label}`}
           >
+            <span className="absolute left-2.5 top-2.5 z-10 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-xs">
+              {getFlag(g.pays)} {g.pays}
+            </span>
             {g.image_url ? (
               <img src={g.image_url} alt={g.label} className="absolute inset-0 h-full w-full object-cover transition-transform group-hover:scale-105" />
             ) : (

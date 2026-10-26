@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppButton";
+import { AlertBanner } from "@/components/AlertBanner";
 import { PageTransitionWrapper } from "@/components/PageTransitionWrapper";
 import { site } from "@/lib/config/site";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
         />
       </head>
       <body className="flex min-h-screen flex-col font-sans antialiased">
+        <AlertBanner />
         <Header />
         <main className="flex-1">
           <PageTransitionWrapper>{children}</PageTransitionWrapper>
