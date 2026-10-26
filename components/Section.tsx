@@ -9,13 +9,15 @@ export function Section({
   children,
   className,
   muted = false,
+  id,
 }: {
   children: ReactNode;
   className?: string;
   muted?: boolean;
+  id?: string;
 }) {
   return (
-    <section className={cn("py-16 md:py-24", muted && "bg-muted", className)}>
+    <section id={id} className={cn("py-16 md:py-24", muted && "bg-muted", className)}>
       <div className="mx-auto max-w-6xl px-4">{children}</div>
     </section>
   );

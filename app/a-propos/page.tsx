@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { User } from "lucide-react";
+import { User, ShieldCheck, FileText, Building2, CheckCircle2 } from "lucide-react";
 import { Section, SectionTitle, PageHero } from "@/components/Section";
 import { site, valeurs, equipe } from "@/lib/config/site";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -103,8 +103,96 @@ export default function AProposPage() {
         </div>
       </Section>
 
+      {/* Statut légal & Transparence */}
+      <Section muted id="conformite">
+        <AnimatedSection>
+          <SectionTitle
+            eyebrow="Transparence & Statut Légal"
+            title="Une structure reconnue et formellement enregistrée"
+            subtitle="Chez Union Vision Services, nous accordons une importance primordiale à la légalité et à la traçabilité. Chaque étudiant et parent bénéficie de garanties claires et de reçus officiels."
+          />
+        </AnimatedSection>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <AnimatedSection delay={0.1}>
+            <div className="card-soft h-full p-6 border-l-4 border-l-accent flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                    <ShieldCheck className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Numéro Fiscal & Statistique</span>
+                    <h3 className="text-lg font-extrabold text-primary">N.I.N.E.A</h3>
+                  </div>
+                </div>
+                <div className="mt-4 rounded-lg bg-background p-3 font-mono text-sm font-bold text-primary shadow-xs">
+                  {site.ninea}
+                </div>
+                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  Attribué par l&apos;Agence Nationale de la Statistique et de la Démographie (ANSD) de la République du Sénégal.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <CheckCircle2 className="h-4 w-4 shrink-0" /> Immatriculation officielle
+              </div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="card-soft h-full p-6 border-l-4 border-l-accent flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                    <FileText className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Registre du Commerce</span>
+                    <h3 className="text-lg font-extrabold text-primary">R.C.C.M</h3>
+                  </div>
+                </div>
+                <div className="mt-4 rounded-lg bg-background p-3 font-mono text-sm font-bold text-primary shadow-xs">
+                  {site.rccm}
+                </div>
+                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  Enregistré au Greffe du Tribunal de Commerce Hors Classe de Dakar.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <CheckCircle2 className="h-4 w-4 shrink-0" /> Registre actif et conforme
+              </div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.3}>
+            <div className="card-soft h-full p-6 border-l-4 border-l-accent flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                    <Building2 className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Établissement & Siège</span>
+                    <h3 className="text-lg font-extrabold text-primary">Agence Physique</h3>
+                  </div>
+                </div>
+                <div className="mt-4 rounded-lg bg-background p-3 text-xs font-semibold text-primary shadow-xs">
+                  {site.address}
+                </div>
+                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  Dénomination : <strong>{site.legalName} (U.V.S)</strong>. Accueil sur place et délivrance systématique de reçus officiels pour chaque versement.
+                </p>
+              </div>
+              <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <CheckCircle2 className="h-4 w-4 shrink-0" /> Reçus officiels délivrés
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </Section>
+
       {/* Valeurs */}
-      <Section muted>
+      <Section>
         <AnimatedSection>
           <SectionTitle eyebrow="Nos valeurs" title="Ce qui guide notre travail" />
         </AnimatedSection>

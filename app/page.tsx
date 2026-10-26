@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GraduationCap, Plane, ArrowRight, Quote } from "lucide-react";
+import { GraduationCap, Plane, ArrowRight, Quote, ShieldCheck } from "lucide-react";
 import { Section, SectionTitle } from "@/components/Section";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { site } from "@/lib/config/site";
@@ -73,6 +73,30 @@ export default async function HomePage() {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Bandeau Réassurance & Légalité */}
+      <div className="border-b border-border/50 bg-muted/40 py-3.5">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 text-xs">
+          <div className="flex items-center gap-2 font-semibold text-primary">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/20 text-accent">
+              <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            <span>Structure déclarée & reconnue par l&apos;État du Sénégal</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 text-muted-foreground">
+            <span className="font-mono font-medium text-foreground">{site.ninea}</span>
+            <span className="hidden sm:inline text-muted-foreground/40">·</span>
+            <span className="font-mono font-medium text-foreground">{site.rccm}</span>
+            <span className="hidden md:inline text-muted-foreground/40">·</span>
+            <Link
+              href="/a-propos#conformite"
+              className="inline-flex items-center gap-1 font-semibold text-accent hover:underline"
+            >
+              En savoir plus <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* Deux pôles */}
       <Section>
