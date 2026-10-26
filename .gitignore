@@ -10,9 +10,10 @@ lerna-debug.log*
 # Dépendances
 node_modules
 
-# Build Next.js
+# Build Next.js & TypeScript
 .next
 out
+*.tsbuildinfo
 
 # Variables d'environnement (NE JAMAIS commiter)
 .env
